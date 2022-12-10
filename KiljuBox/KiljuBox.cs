@@ -7,11 +7,12 @@ namespace KiljuBox
 {
     public class KiljuBox : Mod
     {
+        //Mod config
         public override string ID => "KiljuBox";
         public override string Name => "KiljuBox";
         public override string Author => "alibuyuktatli";
-        public override string Version => "1.0";
-        public override string Description => "This mod adds 3 wooden crates to the entrance of the house that can be used to carry kilju.";
+        public override string Version => "1.2";
+        public override string Description => "This mod adds wooden crates to the entrance of the house that can be used to carry kilju. You can change crate count from settings";
 
         public List<GameObject> crates = new List<GameObject>();
         public GameObject cratePrefab;
@@ -19,9 +20,20 @@ namespace KiljuBox
         public static Vector3 SPAWN_POSITION = new Vector3(-13.16654f, -0.574089766f, 12.9128084f);
         public static Vector3 SPAWN_ROTATION = new Vector3(270f, 89.34943f, 0f);
 
+        //Settings
+        SettingsSliderInt totalCrateCountSlider;
+
         public override void ModSettings()
         {
+            Settings.AddHeader(this, "Total crate count");
+            totalCrateCountSlider = Settings.AddSlider(this, "totalCrateCount", "Total crate count", 1, 10, 5);
+            Settings.AddHeader(this, "Reset crate locations");
+            Settings.AddButton(this, "resetCrates", "Reset", resetCrateData);
+        }
 
+        public void resetCrateData()
+        {
+            SaveUtility.Remove();
         }
 
         public void createCrate(Vector3 position, Vector3 rotation)
@@ -51,7 +63,7 @@ namespace KiljuBox
                     createCrate(data.position, data.rotation);
                 }
             } else {
-                for(int i = 0; i < totalCrateCount; i++)
+                for(int i = 0; i < (int)totalCrateCountSlider.GetValue(); i++)
                 {
                     createCrate(SPAWN_POSITION, SPAWN_ROTATION);
                 }
