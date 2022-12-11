@@ -11,7 +11,7 @@ namespace KiljuBox
         public override string ID => "KiljuBox";
         public override string Name => "KiljuBox";
         public override string Author => "alibuyuktatli";
-        public override string Version => "1.3";
+        public override string Version => "1.4";
         public override string Description => "This mod adds wooden crates to the entrance of the house that can be used to carry kilju. You can change crate count from settings";
 
         public List<GameObject> crates = new List<GameObject>();
@@ -46,6 +46,24 @@ namespace KiljuBox
             crate.transform.localEulerAngles = rotation;
             crates.Add(crate);
         }
+
+        /*
+        public override void update()
+        {
+            raycasthit hitınfo;
+            bool hashit = (physics.raycast(
+                camera.main.screenpointtoray(ınput.mouseposition), // where the camera is facing.
+                out hitınfo, // the hit info. 
+                5)); // checking if raycast hit said gameobject
+
+            if (hashit)
+            {
+                modconsole.print("has detected: " + hitınfo.transform.gameobject.name); // prints the game object's name to the console when the player is looking at it. expecting 'truck engine(xxxxx)'.
+                modconsole.print("layer: " + hitınfo.transform.gameobject.layer);
+                modconsole.print("tag: " + hitınfo.transform.gameobject.tag);
+            }
+        }
+        */
 
         public override void OnLoad()
         {
