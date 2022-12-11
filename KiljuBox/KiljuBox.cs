@@ -11,12 +11,11 @@ namespace KiljuBox
         public override string ID => "KiljuBox";
         public override string Name => "KiljuBox";
         public override string Author => "alibuyuktatli";
-        public override string Version => "1.2";
+        public override string Version => "1.3";
         public override string Description => "This mod adds wooden crates to the entrance of the house that can be used to carry kilju. You can change crate count from settings";
 
         public List<GameObject> crates = new List<GameObject>();
         public GameObject cratePrefab;
-        public static int totalCrateCount = 3;
         public static Vector3 SPAWN_POSITION = new Vector3(-13.16654f, -0.574089766f, 12.9128084f);
         public static Vector3 SPAWN_ROTATION = new Vector3(270f, 89.34943f, 0f);
 

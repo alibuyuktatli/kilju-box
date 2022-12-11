@@ -37,7 +37,7 @@ namespace KiljuBox
 
         bool isUpsideDown()
         {
-            return this.transform.rotation.eulerAngles.x < 90f;
+            return this.transform.rotation.eulerAngles.x < 90f && this.transform.rotation.eulerAngles.x > 70f;
         }
 
         public void removeKilju(int index)
@@ -66,7 +66,7 @@ namespace KiljuBox
             if (slots.Count >= 6) return;
             if (isUpsideDown()) return;
 
-            if (other.gameObject.name.Contains("kilju"))
+            if (other.gameObject.name.Contains("kilju") || other.gameObject.name.Contains("plastic can") || other.gameObject.name.Contains("juice"))
             {
                 int emptySlot = getEmptySlot();
                 if (emptySlot >= 0)
