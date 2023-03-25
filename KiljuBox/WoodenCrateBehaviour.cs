@@ -1,4 +1,5 @@
-﻿using MSCLoader;
+﻿using MOP.Items;
+using MSCLoader;
 using MSCLoader.Helper;
 using System;
 using System.Collections.Generic;
@@ -49,13 +50,28 @@ namespace KiljuBox
             return this.transform.rotation.eulerAngles.x < 90f && this.transform.rotation.eulerAngles.x > 70f;
         }
 
+        public void setKiljuFreeze(GameObject obj, bool set)
+        {
+            if (set)
+            {
+                obj.AddComponent<KiljuFreeze>();
+            } else {
+                KiljuFreeze freezeComponent = obj.GetComponent<KiljuFreeze>();
+                if (freezeComponent != null)
+                {
+                    Destroy(freezeComponent);
+                }
+            }
+        }
+
         public void removeKilju(int index)
         {
             GameObject kilju = slots[index];
             kilju.tag = "ITEM";
             kilju.layer = 19;
-            kilju.GetComponent<Rigidbody>().detectCollisions = true;
-            kilju.GetComponent<Rigidbody>().isKinematic = false;
+            setKiljuFreeze(kilju, false);
+            //kilju.GetComponent<Rigidbody>().detectCollisions = true;
+            //kilju.GetComponent<Rigidbody>().isKinematic = false;
             //* FixedJoint no longer used
             //Destroy(kilju.GetComponent<FixedJoint>());
             kilju.transform.parent = null;
@@ -97,10 +113,12 @@ namespace KiljuBox
             {
                 PlayMakerGlobals.Instance.Variables.FindFsmBool("GUIuse").Value = true;
                 PlayMakerGlobals.Instance.Variables.FindFsmString("GUIinteraction").Value = isSecured ? "Open lid" : "Close lid";
+                
                 if (cInput.GetButtonDown("Use"))
                 {
                     setLid(!isSecured);
                 }
+                
             }
 
             if (isSecured) return;
@@ -128,9 +146,8 @@ namespace KiljuBox
                     other.transform.position = this.transform.position + this.transform.rotation * (SLOT_POSITIONS[emptySlot]);
                     other.transform.rotation = this.transform.rotation;
                     other.gameObject.layer = 16;
-                    other.gameObject.GetComponent<Rigidbody>().detectCollisions = false;
-                    other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                     other.transform.parent = this.transform;
+                    setKiljuFreeze(other.gameObject, true);
                     /*
                      * FixedJoint no longer used
                     if (other.gameObject.GetComponent<FixedJoint>() == null)

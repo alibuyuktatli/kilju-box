@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KiljuBox.cs" />
+    <Compile Include="KiljuFreeze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveUtility.cs" />
     <Compile Include="WoodenCrateBehaviour.cs" />
