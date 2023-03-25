@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace MOP.Items
+namespace KiljuBox
 {
     class KiljuFreeze : MonoBehaviour
     {
@@ -11,7 +11,7 @@ namespace MOP.Items
             rb = GetComponent<Rigidbody>();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             rb.detectCollisions = false;
             rb.isKinematic = true;

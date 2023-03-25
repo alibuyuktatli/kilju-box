@@ -59,5 +59,9 @@
     <Compile Include="WoodenCrateSaveData.cs" />
     <Compile Include="WoodenCrateSaveUtility.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="cInput.dll" />
+    <Content Include="PlayMaker.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

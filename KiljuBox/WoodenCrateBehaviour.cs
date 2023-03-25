@@ -1,5 +1,4 @@
-﻿using MOP.Items;
-using MSCLoader;
+﻿using MSCLoader;
 using MSCLoader.Helper;
 using System;
 using System.Collections.Generic;
@@ -70,10 +69,6 @@ namespace KiljuBox
             kilju.tag = "ITEM";
             kilju.layer = 19;
             setKiljuFreeze(kilju, false);
-            //kilju.GetComponent<Rigidbody>().detectCollisions = true;
-            //kilju.GetComponent<Rigidbody>().isKinematic = false;
-            //* FixedJoint no longer used
-            //Destroy(kilju.GetComponent<FixedJoint>());
             kilju.transform.parent = null;
             slots.RemoveAt(index);
         }
@@ -118,7 +113,6 @@ namespace KiljuBox
                 {
                     setLid(!isSecured);
                 }
-                
             }
 
             if (isSecured) return;
@@ -145,20 +139,10 @@ namespace KiljuBox
                 {
                     other.transform.position = this.transform.position + this.transform.rotation * (SLOT_POSITIONS[emptySlot]);
                     other.transform.rotation = this.transform.rotation;
+                    other.gameObject.tag = "Untagged";
                     other.gameObject.layer = 16;
                     other.transform.parent = this.transform;
                     setKiljuFreeze(other.gameObject, true);
-                    /*
-                     * FixedJoint no longer used
-                    if (other.gameObject.GetComponent<FixedJoint>() == null)
-                    {
-                        other.gameObject.AddComponent<FixedJoint>().connectedBody = this.gameObject.GetComponent<Rigidbody>();
-                    }
-
-                    FixedJoint joint = other.gameObject.GetComponent<FixedJoint>();
-                    joint.autoConfigureConnectedAnchor = false;
-                    joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
-                    */
                     slots.Add(other.gameObject);
                 }
             }
