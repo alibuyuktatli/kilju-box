@@ -96,25 +96,6 @@ namespace KiljuBox
 
         void Update()
         {
-            RaycastHit hitInfo;
-            bool hit = (Physics.Raycast(
-                Camera.main.ScreenPointToRay(Input.mousePosition),
-                out hitInfo,
-                1,
-                1 << this.gameObject.layer)
-                && hitInfo.transform.gameObject == this.gameObject);
-
-            if (hit)
-            {
-                PlayMakerGlobals.Instance.Variables.FindFsmBool("GUIuse").Value = true;
-                PlayMakerGlobals.Instance.Variables.FindFsmString("GUIinteraction").Value = isSecured ? "Open lid" : "Close lid";
-                
-                if (cInput.GetButtonDown("Use"))
-                {
-                    setLid(!isSecured);
-                }
-            }
-
             if (isSecured) return;
             if (slots.Count <= 0) return;
             if (isUpsideDown())
@@ -140,7 +121,7 @@ namespace KiljuBox
                     other.transform.position = this.transform.position + this.transform.rotation * (SLOT_POSITIONS[emptySlot]);
                     other.transform.rotation = this.transform.rotation;
                     other.gameObject.tag = "Untagged";
-                    other.gameObject.layer = 16;
+                    other.gameObject.layer = 2;
                     other.transform.parent = this.transform;
                     setKiljuFreeze(other.gameObject, true);
                     slots.Add(other.gameObject);
