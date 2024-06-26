@@ -1,6 +1,8 @@
-﻿using MSCLoader;
+﻿using HutongGames.PlayMaker;
+using MSCLoader;
 using MSCLoader.Helper;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,7 +32,11 @@ namespace KiljuBox
         public List<GameObject> slots = new List<GameObject>();
         public GameObject lid;
 
-        int getEmptySlot()
+        // bottle save states
+        public string[] bottleIDs = new string[6];
+        public bool loading = true;
+
+        int GetEmptySlot()
         {
             for (int i = 0; i < 6; i++)
             {
@@ -44,17 +50,19 @@ namespace KiljuBox
             return -1;
         }
 
-        bool isUpsideDown()
+        bool IsUpsideDown()
         {
             return this.transform.rotation.eulerAngles.x < 90f && this.transform.rotation.eulerAngles.x > 70f;
         }
 
-        public void setKiljuFreeze(GameObject obj, bool set)
+        public void SetKiljuFreeze(GameObject obj, bool set)
         {
             if (set)
             {
                 obj.AddComponent<KiljuFreeze>();
-            } else {
+            }
+            else
+            {
                 KiljuFreeze freezeComponent = obj.GetComponent<KiljuFreeze>();
                 if (freezeComponent != null)
                 {
@@ -63,17 +71,17 @@ namespace KiljuBox
             }
         }
 
-        public void removeKilju(int index)
+        public void RemoveKilju(int index)
         {
             GameObject kilju = slots[index];
             kilju.tag = "ITEM";
             kilju.layer = 19;
-            setKiljuFreeze(kilju, false);
+            SetKiljuFreeze(kilju, false);
             kilju.transform.parent = null;
             slots.RemoveAt(index);
         }
 
-        public void setLid(bool action)
+        public void SetLid(bool action)
         {
             lid.GetComponent<MeshRenderer>().enabled = action;
             this.isSecured = action;
@@ -89,43 +97,84 @@ namespace KiljuBox
             }
         }
 
-        void Start()
+        public void Init()
         {
             lid = this.transform.Find("lid").gameObject;
+            SetLid(isSecured);
+            StartCoroutine(LoadBottles());
+        }
+
+        IEnumerator LoadBottles()
+        {
+            if (bottleIDs.Length > 0)
+            {
+                //yield return new WaitForSeconds(1f);
+                foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("ITEM"))
+                {
+                    try
+                    {
+                        if (CanProcessItem(gameObject))
+                        {
+                            if (gameObject.GetFsmByName("Use") != null && bottleIDs.Contains(gameObject.GetFsmID().Value))
+                            {
+                                AddKilju(gameObject);
+                            }
+                        }
+                    }
+                    catch (Exception e) { }
+                    yield return null;
+                }
+            }
+            this.loading = false;
+            bottleIDs = new string[6];
+            yield break;
         }
 
         void Update()
         {
+            if (loading) return;
             if (isSecured) return;
             if (slots.Count <= 0) return;
-            if (isUpsideDown())
+            if (IsUpsideDown())
             {
                 for (int i = 0; i < slots.Count; i++)
                 {
-                    removeKilju(i);
+                    RemoveKilju(i);
                 }
             }
         }
 
+        public static bool CanProcessItem(GameObject gameObject)
+        {
+            return gameObject.name.Contains("kilju") || gameObject.name.Contains("plastic can") || gameObject.name.Contains("juice");
+        }
+
+        private int AddKilju(GameObject gameObject)
+        {
+            int emptySlot = GetEmptySlot();
+            if (emptySlot >= 0)
+            {
+                gameObject.transform.position = this.transform.position + this.transform.rotation * (SLOT_POSITIONS[emptySlot]);
+                gameObject.transform.rotation = this.transform.rotation;
+                gameObject.tag = "Untagged";
+                gameObject.layer = 2;
+                gameObject.transform.parent = this.transform;
+                SetKiljuFreeze(gameObject, true);
+                slots.Add(gameObject);
+            }
+            return emptySlot;
+        }
+
         private void OnCollisionEnter(Collision other)
         {
+            if (loading) return;
             if (isSecured) return;
             if (slots.Count >= 6) return;
-            if (isUpsideDown()) return;
+            if (IsUpsideDown()) return;
 
-            if (other.gameObject.name.Contains("kilju") || other.gameObject.name.Contains("plastic can") || other.gameObject.name.Contains("juice"))
+            if (CanProcessItem(other.gameObject))
             {
-                int emptySlot = getEmptySlot();
-                if (emptySlot >= 0)
-                {
-                    other.transform.position = this.transform.position + this.transform.rotation * (SLOT_POSITIONS[emptySlot]);
-                    other.transform.rotation = this.transform.rotation;
-                    other.gameObject.tag = "Untagged";
-                    other.gameObject.layer = 2;
-                    other.transform.parent = this.transform;
-                    setKiljuFreeze(other.gameObject, true);
-                    slots.Add(other.gameObject);
-                }
+                AddKilju(other.gameObject);
             }
         }
     }

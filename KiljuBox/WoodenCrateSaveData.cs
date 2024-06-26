@@ -11,5 +11,7 @@ namespace KiljuBox
     {
         public Vector3 position = new Vector3();
         public Vector3 rotation = new Vector3();
+        public String[] bottleIDs = new String[6];
+        public bool isSecured = false;
     }
 }

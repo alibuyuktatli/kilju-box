@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="cInput, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FsmHelper.cs" />
     <Compile Include="KiljuBox.cs" />
     <Compile Include="KiljuFreeze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,4 +66,7 @@
     <Compile Include="WoodenCrateSaveUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y "$(TargetDir)KiljuBox.dll" "C:\Users\Ali\Documents\MySummerCar\Mods"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

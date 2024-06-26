@@ -12,7 +12,7 @@ namespace KiljuBox
         public override string ID => "KiljuBox";
         public override string Name => "KiljuBox";
         public override string Author => "alibuyuktatli";
-        public override string Version => "1.460";
+        public override string Version => "1.590";
         public override string Description => "This mod adds wooden crates to the entrance of the house that can be used to carry kilju. You can change crate count from settings";
 
         public List<GameObject> crates = new List<GameObject>();
@@ -28,27 +28,31 @@ namespace KiljuBox
             Settings.AddHeader(this, "Total crate count");
             totalCrateCountSlider = Settings.AddSlider(this, "totalCrateCount", "Total crate count", 1, 10, 5);
             Settings.AddHeader(this, "Reset crate locations");
-            Settings.AddButton(this, "resetCrates", "Reset", resetCrateData);
+            Settings.AddButton(this, "resetCrates", "Reset", ResetCrateData);
         }
 
-        public void resetCrateData()
+        public void ResetCrateData()
         {
             SaveUtility.Remove();
         }
 
-        public void createCrate(Vector3 position, Vector3 rotation)
+        public void CreateCrate(Vector3 position, Vector3 rotation, string[] bottleIDs, bool isSecured)
         {
             GameObject crate = UnityEngine.Object.Instantiate<GameObject>(cratePrefab);
-            crate.AddComponent<WoodenCrateBehaviour>();
+
+            WoodenCrateBehaviour behaviour = crate.AddComponent<WoodenCrateBehaviour>();
+            behaviour.bottleIDs = bottleIDs;
+            behaviour.isSecured = isSecured;
+            
             crate.name = "Wooden Crate(itemx)";
             crate.layer = 19;
             crate.tag = "PART";
             crate.transform.transform.localPosition = position;
             crate.transform.localEulerAngles = rotation;
             crates.Add(crate);
+
+            behaviour.Init();
         }
-
-
         public override void Update()
         {
             RaycastHit hitInfo;
@@ -67,7 +71,7 @@ namespace KiljuBox
 
                 if (cInput.GetButtonDown("Use"))
                 {
-                    crateBehaviour.setLid(!crateBehaviour.isSecured);
+                    crateBehaviour.SetLid(!crateBehaviour.isSecured);
                 }
             }
         }
@@ -84,15 +88,16 @@ namespace KiljuBox
                 for(int i = 0; i < crateSaveData.Count; i++)
                 {
                     WoodenCrateSaveData data = crateSaveData[i];
-                    createCrate(data.position, data.rotation);
+                    CreateCrate(data.position, data.rotation, data.bottleIDs, data.isSecured);
                 }
             } else {
                 for(int i = 0; i < (int)totalCrateCountSlider.GetValue(); i++)
                 {
-                    createCrate(SPAWN_POSITION, SPAWN_ROTATION);
+                    CreateCrate(SPAWN_POSITION, SPAWN_ROTATION, new string[6], false);
                 }
             }
         }
+
         public override void OnSave()
         {
             WoodenCrateSaveUtility.Save(crates);
