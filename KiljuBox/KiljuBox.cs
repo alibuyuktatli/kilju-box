@@ -23,7 +23,15 @@ namespace KiljuBox
         //Settings
         SettingsSliderInt totalCrateCountSlider;
 
-        public override void ModSettings()
+        public override void ModSetup()
+        {
+            SetupFunction(Setup.ModSettings, ModSettings);
+            SetupFunction(Setup.Update, Update);
+            SetupFunction(Setup.OnLoad, OnLoad);
+            SetupFunction(Setup.OnSave, OnSave);
+        }
+
+        public void ModSettings()
         {
             Settings.AddHeader(this, "Total crate count");
             totalCrateCountSlider = Settings.AddSlider(this, "totalCrateCount", "Total crate count", 1, 10, 5);
@@ -53,7 +61,7 @@ namespace KiljuBox
 
             behaviour.Init();
         }
-        public override void Update()
+        public void Update()
         {
             RaycastHit hitInfo;
             bool hit = (Physics.Raycast(
@@ -76,7 +84,7 @@ namespace KiljuBox
             }
         }
 
-        public override void OnLoad()
+        public void OnLoad()
         {
             AssetBundle woodCrateBundle = LoadAssets.LoadBundle(this, "kiljubox.unity3d");
             cratePrefab = woodCrateBundle.LoadAsset("woodencrate.prefab") as GameObject;
@@ -98,7 +106,7 @@ namespace KiljuBox
             }
         }
 
-        public override void OnSave()
+        public void OnSave()
         {
             WoodenCrateSaveUtility.Save(crates);
         }
