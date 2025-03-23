@@ -12,7 +12,7 @@ namespace KiljuBox
         public override string ID => "KiljuBox";
         public override string Name => "KiljuBox";
         public override string Author => "alibuyuktatli";
-        public override string Version => "1.595";
+        public override string Version => "1.600";
         public override string Description => "This mod adds wooden crates to the entrance of the house that can be used to carry kilju. You can change crate count from settings";
 
         public List<GameObject> crates = new List<GameObject>();
@@ -26,7 +26,7 @@ namespace KiljuBox
         public override void ModSetup()
         {
             SetupFunction(Setup.ModSettings, ModSettings);
-            SetupFunction(Setup.Update, Update);
+            //SetupFunction(Setup.Update, Update);
             SetupFunction(Setup.OnLoad, OnLoad);
             SetupFunction(Setup.OnSave, OnSave);
         }
@@ -61,28 +61,34 @@ namespace KiljuBox
 
             behaviour.Init();
         }
-        public void Update()
+        /*public void Update()
         {
-            RaycastHit hitInfo;
-            bool hit = (Physics.Raycast(
-                Camera.main.ScreenPointToRay(Input.mousePosition),
-                out hitInfo,
-                1,
-                1 << 19)
-                && hitInfo.transform.gameObject.GetComponent<WoodenCrateBehaviour>() != null);
-
-            if (hit)
+            try
             {
-                WoodenCrateBehaviour crateBehaviour = hitInfo.transform.gameObject.GetComponent<WoodenCrateBehaviour>();
-                PlayMakerGlobals.Instance.Variables.FindFsmBool("GUIuse").Value = true;
-                PlayMakerGlobals.Instance.Variables.FindFsmString("GUIinteraction").Value = crateBehaviour.isSecured ? "Open lid" : "Close lid";
+                RaycastHit hitInfo;
+                bool hit = (Physics.Raycast(
+                    Camera.main.ScreenPointToRay(Input.mousePosition),
+                    out hitInfo,
+                    1,
+                    1 << 19)
+                    && hitInfo.transform.gameObject.GetComponent<WoodenCrateBehaviour>() != null);
 
-                if (cInput.GetButtonDown("Use"))
+                if (hit)
                 {
-                    crateBehaviour.SetLid(!crateBehaviour.isSecured);
+                    WoodenCrateBehaviour crateBehaviour = hitInfo.transform.gameObject.GetComponent<WoodenCrateBehaviour>();
+                    if (crateBehaviour != null) // smh
+                    {
+                        PlayMakerGlobals.Instance.Variables.FindFsmBool("GUIuse").Value = true;
+                        PlayMakerGlobals.Instance.Variables.FindFsmString("GUIinteraction").Value = crateBehaviour.isSecured ? "Open lid" : "Close lid";
+
+                        if (cInput.GetButtonDown("Use"))
+                        {
+                            crateBehaviour.SetLid(!crateBehaviour.isSecured);
+                        }
+                    }
                 }
-            }
-        }
+            } catch { }
+        }*/
 
         public void OnLoad()
         {

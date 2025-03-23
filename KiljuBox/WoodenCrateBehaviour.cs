@@ -31,6 +31,7 @@ namespace KiljuBox
         const float slotHeight = 0.13f;
         public List<GameObject> slots = new List<GameObject>();
         public GameObject lid;
+        public Collider collider;
 
         // bottle save states
         public string[] bottleIDs = new string[6];
@@ -99,6 +100,7 @@ namespace KiljuBox
 
         public void Init()
         {
+            collider = GetComponent<Collider>();
             lid = this.transform.Find("lid").gameObject;
             SetLid(isSecured);
             StartCoroutine(LoadBottles());
@@ -132,6 +134,16 @@ namespace KiljuBox
 
         void Update()
         {
+            if (this.collider != null && UnifiedRaycast.GetHit(this.collider))
+            {
+                PlayMakerGlobals.Instance.Variables.FindFsmBool("GUIuse").Value = true;
+                PlayMakerGlobals.Instance.Variables.FindFsmString("GUIinteraction").Value = this.isSecured ? "Open lid" : "Close lid";
+
+                if (cInput.GetButtonDown("Use"))
+                {
+                    this.SetLid(!this.isSecured);
+                }
+            }
             if (loading) return;
             if (isSecured) return;
             if (slots.Count <= 0) return;

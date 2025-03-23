@@ -3,18 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\ali\\Desktop\\kilju-box\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|c:\\users\\ali\\desktop\\kilju-box\\kiljubox\\kiljubox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|C:\\Users\\ali\\Desktop\\kilju-box\\kiljubox\\kiljubox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|solutionrelative:kiljubox\\kiljubox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|KiljuBox||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|C:\\Users\\ali\\Desktop\\kilju-box\\kiljubox\\woodencratebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|c:\\users\\ali\\desktop\\kilju-box\\kiljubox\\woodencratebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|solutionrelative:kiljubox\\woodencratebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CE277FF8-BF50-41B5-820D-A1BB96F564EF}|KiljuBox\\KiljuBox.csproj|c:\\users\\ali\\desktop\\kilju-box\\kiljubox\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|1e78f8db-6c07-4d61-a18f-7514010abd56"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,31 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "KiljuBox",
-              "DocumentMoniker": "C:\\Users\\ali\\Desktop\\kilju-box\\KiljuBox\\KiljuBox.csproj",
-              "RelativeDocumentMoniker": "KiljuBox\\KiljuBox.csproj",
-              "ToolTip": "C:\\Users\\ali\\Desktop\\kilju-box\\KiljuBox\\KiljuBox.csproj",
-              "RelativeToolTip": "KiljuBox\\KiljuBox.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-02-24T14:35:43.919Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "WoodenCrateBehaviour.cs",
               "DocumentMoniker": "C:\\Users\\ali\\Desktop\\kilju-box\\KiljuBox\\WoodenCrateBehaviour.cs",
               "RelativeDocumentMoniker": "KiljuBox\\WoodenCrateBehaviour.cs",
               "ToolTip": "C:\\Users\\ali\\Desktop\\kilju-box\\KiljuBox\\WoodenCrateBehaviour.cs",
               "RelativeToolTip": "KiljuBox\\WoodenCrateBehaviour.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAlwH8AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALwAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-26T01:45:28.057Z",
+              "WhenOpened": "2025-03-22T23:16:18.587Z",
               "EditorCaption": ""
             },
             {
@@ -59,7 +41,7 @@
               "RelativeDocumentMoniker": "KiljuBox\\KiljuBox.cs",
               "ToolTip": "C:\\Users\\ali\\Desktop\\kilju-box\\KiljuBox\\KiljuBox.cs",
               "RelativeToolTip": "KiljuBox\\KiljuBox.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAswC4AAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-26T01:33:40.846Z",
               "EditorCaption": ""
